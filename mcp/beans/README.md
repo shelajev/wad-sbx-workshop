@@ -49,8 +49,7 @@ beans-mcp --beans-bin /absolute/path/to/beans \
 
 Use Windows paths and `.exe` names when invoking the binary from PowerShell.
 Each path is a separate argument, so paths containing spaces are supported by
-this adapter. For the workshop itself, use a path without spaces as described in
-chapter 00 so the sample application's setup commands work correctly.
+this adapter.
 
 `--enable-presenter-note-tool` enables result notes on a disposable backlog.
 `--check` reports configuration and a backlog read as JSON; `--version` reports

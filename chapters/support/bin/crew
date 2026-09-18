@@ -23,11 +23,14 @@ def ready():
             raise RuntimeError('A role has not acknowledged. Use crew logs ROLE to inspect its login or model error.')
         time.sleep(1)
 
-def notify(role="coordinator"):
+def notify(role="coordinator", message_id=None):
     # Retrying a busy recipient is safe: crew-notify releases its notification claim.
+    command = [str(bin_dir / 'crew-notify'), role]
+    if message_id is not None:
+        command.extend(['--message-id', message_id])
     until = time.monotonic() + 120
     while True:
-        p = subprocess.run([str(bin_dir / 'crew-notify'), role], text=True, capture_output=True)
+        p = subprocess.run(command, text=True, capture_output=True)
         if p.returncode in (0, 9):
             print('Message delivered.' if os.environ.get('FACTORY_ROLE') else
                   'Message delivered. Use crew watch to follow the team.')
@@ -37,9 +40,9 @@ def notify(role="coordinator"):
         time.sleep(2)
 
 def send(kind, body, target='coordinator', sender='human'):
-    run('handoff', 'send', '--to', target, '--from', sender, '--kind', kind, '--body', body, capture=True)
+    message_id = run('handoff', 'send', '--to', target, '--from', sender, '--kind', kind, '--body', body, capture=True).stdout.strip()
     if target != 'human':
-        notify(target)
+        notify(target, message_id)
 
 def messages(seen):
     for path in sorted((base / 'messages').glob('*.json')):
@@ -69,9 +72,9 @@ crew deliver         Retry delivery of an already saved message''')
         # Only mark submission after storing it. Notification can be retried separately.
         task = json.loads((base / 'state.json').read_text())['task_id']
         body = f'Work on {task}. Read ~/work/PROMPT.md and your role brief. Use the task instructions there.'
-        run('handoff', 'send', '--to', 'coordinator', '--from', 'human', '--kind', 'assignment', '--body', body, capture=True)
+        message_id = run('handoff', 'send', '--to', 'coordinator', '--from', 'human', '--kind', 'assignment', '--body', body, capture=True).stdout.strip()
         (base / 'submitted').touch()
-        notify()
+        notify(message_id=message_id)
     elif command in ('ask', 'reply'):
         if len(sys.argv) < 3:
             raise RuntimeError(f'Usage: crew {command} "your message"')

@@ -80,8 +80,14 @@ For the chapter-03 example above, continue in your SANDBOX tab:
 ./scripts/launch-factory.sh wad-ch-03
 ```
 
-Continue at chapter 03's provider setup. The finished configuration already enables
-guidance installation and opens the shell.
+The configuration supplies the ACR kit and opens a shell. A fresh application
+checkpoint includes ACR configuration but not the installed workshop policy.
+In that sandbox shell, install and verify the policy and review skill before
+continuing at chapter 03's provider setup:
+
+```bash
+install-guidance
+```
 
 If you also need a completed application checkpoint, select it explicitly. To join
 the SSH chapter without doing the earlier feature:
@@ -97,7 +103,8 @@ contents under `.local/` and printing the backup location. Before launching, che
 the reference Pi/Anthropic coordinator and two Claude roles. Choose the
 [all-Claude configuration](04-team/README.md#2-give-the-assistants-different-responsibilities)
 if you have only subscription access. Restore any extra kit entries as described
-above. Then launch `wad-ch-06` and submit its task as chapter 06 describes.
+above. Then launch `wad-ch-06`, run `install-guidance` in its sandbox shell for the
+fresh checkpoint, and submit its task as chapter 06 describes.
 The path you work in remains `sample-app/`.
 
 ## Repeating a chapter

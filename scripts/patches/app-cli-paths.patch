@@ -1,0 +1,42 @@
+diff --git a/src/db/migrate.ts b/src/db/migrate.ts
+--- a/src/db/migrate.ts
++++ b/src/db/migrate.ts
+@@ -1,7 +1,7 @@
+ /** Applies the SQL files in db/migrations in lexical order, tracking them in a
+  *  schema_migrations table. Safe to run repeatedly. */
+ import { readdir, readFile } from "node:fs/promises";
+-import { fileURLToPath } from "node:url";
++import { fileURLToPath, pathToFileURL } from "node:url";
+ import path from "node:path";
+ import type { Pool } from "pg";
+ import { createPool } from "./pool.ts";
+@@ -31,7 +31,7 @@ export async function migrate(pool: Pool, opts: { reset?: boolean } = {}): Promise<
+   return applied;
+ }
+ 
+-if (process.argv[1] && import.meta.url === `file://${process.argv[1]}`) {
++if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+   const config = loadConfig();
+   const pool = createPool(config.databaseUrl);
+   const reset = process.argv.includes("--reset");
+diff --git a/src/db/seed.ts b/src/db/seed.ts
+--- a/src/db/seed.ts
++++ b/src/db/seed.ts
+@@ -1,7 +1,7 @@
+ /** Loads the deterministic fictional incident set. Idempotent: it replaces the
+  *  seeded rows so a re-seed always yields the same board state. */
+ import { readFile } from "node:fs/promises";
+-import { fileURLToPath } from "node:url";
++import { fileURLToPath, pathToFileURL } from "node:url";
+ import path from "node:path";
+ import type { Pool } from "pg";
+ import { createPool } from "./pool.ts";
+@@ -35,7 +35,7 @@ export async function seed(pool: Pool): Promise<number> {
+   return rows.length;
+ }
+ 
+-if (process.argv[1] && import.meta.url === `file://${process.argv[1]}`) {
++if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+   const config = loadConfig();
+   const pool = createPool(config.databaseUrl);
+   seed(pool)

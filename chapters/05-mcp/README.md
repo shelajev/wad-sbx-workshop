@@ -169,7 +169,7 @@ After the team finishes its feature, try a normal development need: downloading 
 browser for future UI checks. In the SANDBOX shell:
 
 ```bash
-crew ask "Ask the developer to try installing Playwright Chromium for this project. If a download is blocked, tell me the exact destination and why it is needed. Do not change host policy."
+crew ask "Ask the developer to run npx playwright install --with-deps chromium inside this sandbox, then npm run test:browser. Report passed, failed and skipped test counts. If a browser or system-package download is blocked, tell me the exact destination and why it is needed. Do not change host policy."
 crew watch
 ```
 
@@ -184,13 +184,19 @@ This grants network access only for this sandbox and host. Return to the SANDBOX
 shell (Ctrl-C leaves `crew watch`) and ask it to retry:
 
 ```bash
-crew ask "The reported download host is now allowed. Ask the developer to retry and report the outcome."
+crew ask "The reported download host is now allowed. Ask the developer to retry installation and npm run test:browser, then report passed, failed and skipped test counts."
 crew watch
 ```
 
-Redirects may introduce another destination; inspect the actual request before
-allowing it. If the original download already succeeds, the current policy permits
-it, so you can continue to the kit definition below. When a request is blocked,
+`--with-deps` installs both Chromium and its Linux system libraries inside SBX.
+Downloading the browser alone can leave required libraries missing. Ask the
+developer to explain the check results: did Chromium start, and which tests
+actually ran? A skipped test has not exercised the browser. If startup fails,
+use its error message to identify what the sandbox still needs.
+
+Redirects and system package repositories may introduce another destination;
+inspect the actual request before allowing it. If installation and browser checks
+already pass, continue to the kit definition below. When a request is blocked,
 the agent can explain what it needs; you decide on the host whether to allow it.
 
 For a requirement you want every future worker to have, create

@@ -59,7 +59,24 @@ sbx rm wad-kit-first
 ## 2. Use a kit to supply a real tool
 
 The [ACR kit](https://github.com/shelajev/acr-sbx-kit) installs a package manager
-for agent guidance. Our [workshop policy package](https://github.com/shelajev/coding-policy/tree/workshop)
+for agent guidance. Before adding this Git-hosted kit, check the allowed publishers
+in HOST:
+
+```bash
+sbx settings get kit.allowedSources
+```
+
+The kit needs `github.com/shelajev/` in that list. On a personal installation whose
+current list is exactly `["docker.io/"]`, approve the workshop publisher with:
+
+```bash
+sbx settings set kit.allowedSources '["docker.io/","github.com/shelajev/"]'
+```
+
+This permits kits from that GitHub publisher. Preserve any other existing entries
+when adding it; on a managed installation, ask your administrator to approve it.
+
+Our [workshop policy package](https://github.com/shelajev/coding-policy/tree/workshop)
 contains four coding rules and a `review-change` skill. Open that package and read
 a rule: how would it help someone review the change you just made?
 
@@ -108,19 +125,25 @@ Ask Claude:
 > agents.yaml, AGENTS.md and the installed review-change skill. Explain which file
 > declares the package and which files tell an assistant how to work.
 
-The helper performs these ACR operations, shown here for explanation:
+The helper installs a missing dependency, generates guidance, and checks that it
+is current. Its main operations are:
 
 ```text
-acr install github:shelajev/coding-policy@b85031eb0c8963b28b63eaa12efcbd34c850d32d --agent claude-code --agent codex --freshness none --non-interactive
-acr realize
+acr install github:shelajev/coding-policy@b85031eb0c8963b28b63eaa12efcbd34c850d32d --if-missing --non-interactive
+acr realize --agent claude-code --agent codex
+acr check --agent claude-code --agent codex
 ```
 
-`install` selects the pinned policy and the assistant formats to generate.
+`install` adds the pinned policy without replacing an existing dependency choice.
 `realize` writes the agent-facing guidance. Claude and Codex have generated formats;
-Pi can read the shared `AGENTS.md` and skill too. The fixed revision and
-`--freshness none` keep everyone on the same exercise; `--non-interactive` uses
-these supplied choices. You can inspect `chapters/support/bin/install-guidance`
-on the host to see the complete helper.
+Pi can read the shared `AGENTS.md` and skill too. `check` confirms that generated
+instructions match the installed package. You should now have a review skill for
+both Claude and Codex.
+
+For a project without `agents.yaml`, the helper selects those two assistants and
+sets `--freshness none` to keep the exercise on its chosen policy revision. An
+existing project's package choices and configuration are kept. You can inspect
+`chapters/support/bin/install-guidance` on the host to see the complete helper.
 
 Open `sample-app/AGENTS.md` in your host editor. These are real files in the same
 mounted project. Ask Claude:

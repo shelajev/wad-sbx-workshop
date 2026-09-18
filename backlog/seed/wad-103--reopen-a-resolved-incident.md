@@ -38,6 +38,14 @@ and the two defensible readings produce different API responses and different te
 A coordinator must not pick one of these. Report `needs-human` with both positions and
 the exact field in question, and wait for the recorded decision.
 
+## Browser workflow
+
+On a resolved incident's detail page, provide a reopen form requiring a reason.
+Submit it through the reopen API and display any validation error. After success,
+show the open status, current resolution note according to the recorded decision,
+and history including the reopen reason. Keep the earlier resolution note visible
+in its historical entry. The reopen form is only available for resolved incidents.
+
 ## Acceptance criteria
 - All of the status codes above are covered by `tests/api/` tests.
 - The behaviour of `resolutionNote` on reopen matches the decision recorded in
@@ -45,5 +53,7 @@ the exact field in question, and wait for the recorded decision.
   is referenced in the implementation report.
 - A test asserts the decided behaviour explicitly, naming the decision in the test title.
 - `wad-102` behaviour and its tests are unchanged.
+- A real-browser test resolves an incident with a note, reopens it with a reason,
+  reloads the page, and verifies the decided current-note behaviour and retained history.
 - `npm run typecheck`, `npm run test:unit`, `npm run test:integration` and
-  `npm run test:api` pass.
+  `npm run test:api` pass. `npm run test:browser` passes with no skipped tests.

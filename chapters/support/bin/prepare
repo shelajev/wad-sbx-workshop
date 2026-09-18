@@ -10,12 +10,18 @@ for tool in "$HOME/work/bin/"*; do ln -sf "$tool" "$HOME/.local/bin/$(basename "
 export PATH="$HOME/work/bin:$PATH"
 app="$(cat app-path)"
 [ -d "$app" ] || { echo "Missing mounted project: $app"; exit 1; }
-prepare-node-modules "$app"
+host_platform=""
+[ ! -f host-platform ] || host_platform="$(tr -d '\r' < host-platform)"
+prepare-node-modules "$app" "$host_platform"
 ln -sfn "$app" "$HOME/work/app"
 trust-workspace "$HOME/work" "$app"
 cd "$app"
 if [ "$USE_ACR" = 1 ]; then
-  if [ ! -f agents.yaml ]; then
+  if [ -f agents.yaml ]; then
+    if [ ! -s .claude/skills/acr__shelajev__coding-policy__review-change/SKILL.md ]; then
+      echo "ACR configuration found without the workshop review skill. Run install-guidance after reviewing the policy, or keep this project's own guidance."
+    fi
+  else
     if [ -f AGENTS.md ]; then
       echo "Existing project guidance found; leaving it in place. Use install-guidance only after reviewing the package."
     else

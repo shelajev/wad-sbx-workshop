@@ -1,25 +1,29 @@
 #!/usr/bin/env bash
 # SANDBOX: keep npm links on a native filesystem when the shared mount loses them.
 set -euo pipefail
-[ "$#" -eq 1 ] || { echo 'Usage: prepare-node-modules application-path' >&2; exit 2; }
+[ "$#" -ge 1 ] && [ "$#" -le 2 ] || { echo 'Usage: prepare-node-modules application-path [host-platform]' >&2; exit 2; }
 app="$1"
+host_platform="${2:-}"
 [ -f "$app/package.json" ] || exit 0
 mountpoint -q "$app/node_modules" && exit 0
 
-probe="$(mktemp -d "$app/.workshop-link-check.XXXXXX")"
-cleanup_probe() {
-  rm -f "$probe/link" "$probe/target"
-  rmdir "$probe"
-}
-trap cleanup_probe EXIT
-printf 'workshop link\n' > "$probe/target"
-links_work=0
-if ln -s target "$probe/link" 2>/dev/null && cmp -s "$probe/target" "$probe/link"; then
-  links_work=1
+# A failed Windows-share symlink can poison later fsync calls even after cleanup.
+if [ "$host_platform" != Windows ]; then
+  probe="$(mktemp -d "$app/.workshop-link-check.XXXXXX")"
+  cleanup_probe() {
+    rm -f "$probe/link" "$probe/target"
+    rmdir "$probe"
+  }
+  trap cleanup_probe EXIT
+  printf 'workshop link\n' > "$probe/target"
+  links_work=0
+  if ln -s target "$probe/link" 2>/dev/null && cmp -s "$probe/target" "$probe/link"; then
+    links_work=1
+  fi
+  cleanup_probe
+  trap - EXIT
+  [ "$links_work" -eq 0 ] || exit 0
 fi
-cleanup_probe
-trap - EXIT
-[ "$links_work" -eq 0 ] || exit 0
 
 mkdir -p "$HOME/.cache/workshop-node-modules" "$app/node_modules"
 sudo mount --bind "$HOME/.cache/workshop-node-modules" "$app/node_modules"

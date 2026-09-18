@@ -48,7 +48,10 @@ if ! "$HANDOFF" claim "$KEY" 2>/dev/null; then
   printf 'crew-notify: %s was already notified for %s\n' "$ROLE" "$KEY" >&2
   exit 9
 fi
-release() { rmdir "$FACTORY_DIR/claims/$KEY" 2>/dev/null || true; }
+release() {
+  rm -f "$FACTORY_DIR/claims/$KEY/claimed_at" 2>/dev/null &&
+    rmdir "$FACTORY_DIR/claims/$KEY" 2>/dev/null || true
+}
 
 state="$(herdr agent get "$ROLE" 2>/dev/null | jq -r '.result.agent.agent_status // "unknown"')"
 case "$state" in

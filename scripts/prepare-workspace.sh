@@ -6,4 +6,4 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 [ "$#" -ge 1 ] && [ "$#" -le 2 ] || die 'Usage: scripts/prepare-workspace.sh sandbox-name [application-path]'
 name="$1"
 app="$(cd "${2:-$ROOT/sample-app}" && pwd)"
-MSYS2_ARG_CONV_EXCL='*' sbx exec -i "$name" bash -s -- "$app" < "$ROOT/chapters/support/bin/prepare-node-modules"
+MSYS2_ARG_CONV_EXCL='*' sbx exec -i "$name" bash -s -- "$app" "$(host_os)" < "$ROOT/chapters/support/bin/prepare-node-modules"

@@ -15,6 +15,11 @@ trap 'rm -rf "$stage"' EXIT
 git clone --quiet --no-hardlinks --config core.autocrlf=false --config core.eol=lf "$root/.local/app" "$stage/app"
 git -C "$stage/app" switch --quiet -c workshop "$ref"
 git -C "$stage/app" remote remove origin
+git -C "$stage/app" apply --index "$root/scripts/patches/app-cli-paths.patch" \
+  "$root/scripts/patches/app-browser-checks.patch"
+git -C "$stage/app" -c user.name='Workshop setup' -c user.email=workshop@example.invalid \
+  -c commit.gpgsign=false -c core.hooksPath=/dev/null commit --quiet \
+  -m 'WAD-SETUP: fix CLI paths and browser checks'
 cat "$root/backlog/seed/wad-101--warm-up-active-filter-count.md" > "$stage/app/WORKSHOP-TASK.md"
 printf '\n/WORKSHOP-TASK.md\n' >> "$stage/app/.git/info/exclude"
 if [ -e "$app" ]; then

@@ -1,0 +1,102 @@
+diff --git a/README.md b/README.md
+index 0517647..a15418a 100644
+--- a/README.md
++++ b/README.md
+@@ -49,7 +49,7 @@ npm run typecheck          # tsc --noEmit
+ npm run test:unit          # pure domain logic, no container
+ npm run test:integration   # disposable Postgres via Testcontainers + real HTTP server
+ npm run test:dom           # DOM-level UI flow against the real API (no browser binary)
+-npm run test:browser       # real Chromium flow (needs `npx playwright install chromium`)
++npm run test:browser       # real Chromium flow (needs `npx playwright install --with-deps chromium`)
+ npm run test:all           # everything above
+ ./scripts/test.sh          # typecheck + unit + integration + dom
+ ```
+@@ -61,10 +61,11 @@ Two levels of UI test, on purpose:
+   say `DOM-level:` so a passing run is never mistaken for browser coverage. It runs
+   anywhere, and it catches the markup/API disagreements that most UI regressions here
+   actually are.
+-- `test:browser` drives a real Chromium through Playwright. It needs the browser binary
+-  from `npx playwright install chromium`, which downloads from `cdn.playwright.dev`. If
+-  the binary is absent the tests **skip with that reason printed** rather than failing
+-  or silently passing.
++- `test:browser` drives a real Chromium through Playwright. Run
++  `npx playwright install --with-deps chromium` inside the sandbox to install its
++  browser and operating-system libraries. Downloads need access to the browser CDN
++  and system package repositories. A missing browser or launch failure fails the
++  checks; a browser run is complete only when its tests execute without skips.
+ 
+ Integration tests start their own Postgres container on a random port, migrate and seed
+ it, and remove it afterwards. They never connect to the long-lived board database, so a
+diff --git a/tests/support/browser.ts b/tests/support/browser.ts
+index a3a8db9..d1ac2b2 100644
+--- a/tests/support/browser.ts
++++ b/tests/support/browser.ts
+@@ -3,9 +3,9 @@
+  *  Two levels, deliberately:
+  *
+  *  `openBrowser()` launches a real Chromium through Playwright. That is the real thing
+- *  and the one the workshop teaches. It needs the browser binary, which
+- *  `npx playwright install chromium` downloads; when it is absent, the browser tests
+- *  skip with a clear message rather than failing or silently passing.
++ *  and the one the workshop teaches. Install its browser and system libraries with
++ *  `npx playwright install --with-deps chromium`. Browser import and launch failures
++ *  fail the browser checks so unavailable Chromium cannot appear as a passing run.
+  *
+  *  `renderPage()` parses served HTML into a DOM with linkedom and drives it against the
+  *  real running API. It is NOT a browser: no layout, no CSS, no real event loop. It
+@@ -21,27 +21,16 @@ export interface BrowserSession {
+ export const BROWSER_SKIP_MESSAGE =
+-  "no Chromium available — run `npx playwright install chromium` (needs network access to cdn.playwright.dev)";
++  "no Chromium available — run `npx playwright install --with-deps chromium` (needs browser CDN and system package access)";
+ 
+-/** Returns a Playwright browser, or undefined when no browser binary is installed. */
+-export async function openBrowser(): Promise<BrowserSession | undefined> {
+-  let chromium: typeof import("playwright").chromium;
+-  try {
+-    ({ chromium } = await import("playwright"));
+-  } catch {
+-    return undefined;
+-  }
+-  try {
+-    const browser = await chromium.launch({ args: ["--no-sandbox"] });
+-    return {
+-      newPage: async () => {
+-        const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+-        return context.newPage();
+-      },
+-      close: () => browser.close(),
+-    };
+-  } catch {
+-    // Playwright is installed but its browser binary is not.
+-    return undefined;
+-  }
++export async function openBrowser(): Promise<BrowserSession> {
++  const { chromium } = await import("playwright");
++  const browser = await chromium.launch({ args: ["--no-sandbox"] });
++  return {
++    newPage: async () => {
++      const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
++      return context.newPage();
++    },
++    close: () => browser.close(),
++  };
+ }
+ 
+ export interface RenderedPage {
+diff --git a/tests/unit/browser-launch.test.ts b/tests/unit/browser-launch.test.ts
+new file mode 100644
+--- /dev/null
++++ b/tests/unit/browser-launch.test.ts
+@@ -0,0 +1,12 @@
++import { test } from "node:test";
++import assert from "node:assert/strict";
++import { chromium } from "playwright";
++import { openBrowser } from "../support/browser.ts";
++
++test("a Chromium launch failure fails browser setup", async (t) => {
++  const launchError = new Error("Chromium could not load libglib-2.0.so.0");
++  t.mock.method(chromium, "launch", async () => {
++    throw launchError;
++  });
++  await assert.rejects(openBrowser(), (error) => error === launchError);
++});

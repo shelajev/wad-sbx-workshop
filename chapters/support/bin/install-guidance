@@ -2,5 +2,14 @@
 # Public package fetches must not use a proxy's GitHub placeholder as a token.
 set -euo pipefail
 cd "$(cat "$HOME/work/app-path")"
-env -u GH_TOKEN -u GITHUB_TOKEN acr install github:shelajev/coding-policy@b85031eb0c8963b28b63eaa12efcbd34c850d32d --agent claude-code --agent codex --freshness none --non-interactive
-env -u GH_TOKEN -u GITHUB_TOKEN acr realize
+options=(--if-missing --non-interactive)
+if [ ! -f agents.yaml ]; then
+  options+=(--agent claude-code --agent codex --freshness none)
+fi
+env -u GH_TOKEN -u GITHUB_TOKEN acr install github:shelajev/coding-policy@b85031eb0c8963b28b63eaa12efcbd34c850d32d "${options[@]}"
+env -u GH_TOKEN -u GITHUB_TOKEN acr realize --agent claude-code --agent codex
+for agent in .claude .codex; do
+  skill="$agent/skills/acr__shelajev__coding-policy__review-change/SKILL.md"
+  [ -s "$skill" ] || { echo "Required review skill is missing: $skill" >&2; exit 1; }
+done
+env -u GH_TOKEN -u GITHUB_TOKEN acr check --agent claude-code --agent codex

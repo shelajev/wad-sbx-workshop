@@ -19,10 +19,25 @@ jobs:
         shell: bash
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - uses: actions/setup-go@v5
         with:
           go-version-file: mcp/beans/go.mod
           cache-dependency-path: mcp/beans/go.sum
+      - name: Check sample-app preparation
+        run: |
+          bash scripts/tests/app-materials-mode.sh
+          bash scripts/tests/prepare-node-modules.sh
+          bash scripts/tests/install-guidance.sh
+          ./scripts/get-materials.sh --app-only
+          bash scripts/tests/app-cli-paths.sh
+      - name: Check sandbox message delivery
+        if: matrix.os == 'ubuntu-24.04'
+        run: |
+          python3 -B scripts/tests/crew.py
+          bash scripts/tests/crew-notify.sh
       - name: Install real Beans and build the native adapter
         run: |
           ./scripts/install-beans.sh

@@ -103,9 +103,8 @@ Never put actual keys or OAuth tokens in the workshop's files.
 
 ## 3. Clone the workshop and get its materials
 
-Choose a directory whose **full path contains no spaces**, so the sample app's
-setup commands work correctly. For example, use `~/workshops` on macOS or
-`C:/workshops` on Windows. Open your terminal there, then clone the repository:
+Choose where you want to keep the workshop on your laptop. Open your terminal
+there, then clone the repository:
 
 ```bash
 # HOST

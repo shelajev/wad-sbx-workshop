@@ -4,6 +4,8 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 . "$ROOT/scripts/common.sh"
 . "$ROOT/scripts/versions.env"
+[ $# -eq 0 ] || { [ $# -eq 1 ] && [ "$1" = --app-only ]; } \
+  || die 'Usage: scripts/get-materials.sh [--app-only]'
 work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT
 release_url="https://github.com/shelajev/wad-sbx-workshop/releases/download/materials-v0.1.0"
@@ -17,7 +19,9 @@ for name in incident-triage-board.bundle; do
   [ "$actual" = "$expected" ] || die "Checksum mismatch: $name"
 done
 mkdir -p "$ROOT/.local"
-"$ROOT/scripts/download-mcp.sh"
+if [ "${1:-}" != --app-only ]; then
+  "$ROOT/scripts/download-mcp.sh"
+fi
 if [ -e "$ROOT/.local/app" ]; then
   info 'Keeping your existing .local/app; no application files changed.'
 else
