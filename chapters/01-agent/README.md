@@ -93,10 +93,10 @@ On Windows, first run this in your **HOST Git Bash tab**, from the workshop root
 ./scripts/prepare-workspace.sh wad-manual
 ```
 
-This prepares storage for npm dependencies inside the sandbox when the Windows
-shared directory cannot support their executable links. Your application source
-and Git history stay shared with the host. The helper reports whether it needed
-to prepare that storage. Later chapter launchers include this step for you.
+On Windows, this gives npm dependencies their own storage inside the sandbox,
+where executable links work as npm expects. Your application source and Git
+history stay shared with the host. The helper reports the dependency storage it
+prepared. Later chapter launchers include this step for you.
 
 Give Claude this prompt:
 
