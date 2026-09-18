@@ -1,8 +1,7 @@
 name: Beans MCP
 on:
-  pull_request:
   push:
-    branches: [main]
+    branches: [main, 'adopt/**', 'fix/**']
     tags: ['beans-mcp-v*']
   workflow_dispatch:
 permissions:
