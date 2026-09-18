@@ -5,7 +5,10 @@ chapter="$(cd "${1:?configuration directory}" && pwd)"; shift
 root="$(cd "$(dirname "$0")/../.." && pwd)"
 ROOT="$root"
 source "$root/scripts/common.sh"
-source <(tr -d '\r' < "$chapter/chapter.env")
+payload="$(mktemp -d)"
+trap 'rm -rf "$payload"' EXIT
+tr -d '\r' < "$chapter/chapter.env" > "$payload/chapter.env"
+source "$payload/chapter.env"
 name="${1:?sandbox name}"; shift
 app="$(cd "${1:-$root/sample-app}" && pwd)"
 [ -d "$app/.git" ] || git -C "$app" rev-parse --git-dir >/dev/null
@@ -17,11 +20,8 @@ if [ "$MODE" = mcp ]; then
   fi
 fi
 # Only support files are transferred. The project itself is mounted by SBX.
-payload="$(mktemp -d)"
-trap 'rm -rf "$payload"' EXIT
 mkdir -p "$payload/bin" "$payload/roles"
 COPYFILE_DISABLE=1 tar --no-xattrs -cf - -C "$root/chapters/support" bin roles | tar xf - -C "$payload"
-tr -d '\r' < "$chapter/chapter.env" > "$payload/chapter.env"
 cp "$chapter/PROMPT.md" "$payload/"
 [ ! -f "$chapter/team.tsv" ] || tr -d '\r' < "$chapter/team.tsv" > "$payload/team.tsv"
 printf '%s\n' "$app" > "$payload/app-path"
