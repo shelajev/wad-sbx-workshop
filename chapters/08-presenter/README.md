@@ -7,6 +7,10 @@ start with a question about the factory the attendees built and show what change
 Attendees can follow along on screen; completing the workshop doesn't depend on
 setting these up on their laptops.
 
+The seeded backlog also contains `wad-104`, an optional take-home or presenter
+exercise that adds a service column and filter to the incident table. It is not
+part of the chapter 01–07 walkthrough.
+
 ## Look at the environment as a whole
 
 Prepare one demo sandbox and keep it connected before presenting. The examples

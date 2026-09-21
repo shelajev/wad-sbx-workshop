@@ -85,7 +85,9 @@ In HOST, install the pinned CLI and initialize the supplied workshop tasks:
 
 The first helper downloads Beans. The second creates our four demo tasks under
 `.local/chapters/beans/`. `--disposable` marks this as practice data that our later
-MCP server may append notes to.
+MCP server may append notes to. Chapters 01–07 walk through `wad-101` to `wad-103`;
+`wad-104` is an optional take-home or presenter exercise for extending the incident
+table with a service column and filter.
 
 Try the CLI:
 

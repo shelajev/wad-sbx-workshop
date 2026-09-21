@@ -137,9 +137,11 @@ account can use**, so you can try changing models with the provider connection
 already configured. Select it if you have access. If only one model is available
 to you, keep it and continue.
 
-To try a different provider, you'll also need to configure its credential binding
-and network access in SBX. Selecting a model name won't do that setup for you.
-You can see the additional configuration in the
+To try a different provider, you need its credential binding and its API endpoint
+must be allowed by SBX. Selecting a model name does not configure either one. The
+supplied Pi kit already allows Google's `generativelanguage.googleapis.com` endpoint,
+but the normal attendee environment does not bind a Google credential. You can see
+that additional credential configuration in the
 [mixed-provider demonstration](MIXED-MODELS.md), which runs Pi on Google with
 **`gemini-3.8-flash`**, alongside Claude and Codex.
 

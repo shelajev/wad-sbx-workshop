@@ -14,6 +14,13 @@ Use the [standalone SBX installation instructions](https://docs.docker.com/ai/sa
 No host Docker engine or Docker Desktop is required. Docker containers will run
 **inside** the sandbox.
 
+This workshop's attendee instructions are tested and supported on macOS with
+Apple silicon and Windows x64 with Git Bash. Experienced Linux users are welcome
+to try the exercises on a best-effort, self-supported basis. The helper scripts
+recognize Linux, but the full Linux setup path is not documented, and the
+instructor may not be able to troubleshoot Linux-specific differences during the
+session.
+
 ### macOS on Apple silicon
 
 These commands assume [Homebrew](https://brew.sh) is installed. Install the
@@ -34,7 +41,7 @@ Claude's model-account login happens separately in chapter 1.
 ### Windows x64
 
 Install [Git for Windows](https://gitforwindows.org/), which includes Git Bash.
-Install [jq](https://jqlang.org/download/#windows), the command-line JSON reader
+Install [jq](https://jqlang.org/download/), the command-line JSON reader
 used by our host scripts. With WinGet, run this in **PowerShell**:
 
 ```powershell
@@ -67,7 +74,7 @@ shows how to use it to join your running team.
 
 Check that `sbx version` reports **v0.45.0-rc2**, the version used by these
 instructions. If Homebrew installed a different RC, use the installer for your
-platform from the [workshop release](https://github.com/docker/sbx-releases/releases/tag/v0.45.0-rc2).
+platform from the [SBX release](https://github.com/docker/sbx-releases/releases/tag/v0.45.0-rc2).
 
 You also need a browser, SSH, a Bash-compatible terminal, internet access and enough
 available memory for a 4-CPU/8-GB sandbox. Run one main chapter sandbox at a time
@@ -75,11 +82,14 @@ when resources are limited. Check the host utilities in each workshop terminal:
 
 ```bash
 # HOST
-command -v sbx git jq curl tar unzip sha256sum
+command -v sbx git jq curl tar unzip
+command -v sha256sum || command -v shasum
 ```
 
 You should see a path for each tool above. A missing path means that
 tool is not available in this terminal; fix its installation before continuing.
+Either checksum command is sufficient: GNU systems commonly provide `sha256sum`,
+while macOS provides `shasum` and the workshop scripts use `shasum -a 256`.
 
 ## 2. Have an agent account ready
 
@@ -114,11 +124,17 @@ cd wad-sbx-workshop
 
 ### Download the application and the prebuilt tool
 
-The workshop's `get-materials.sh` script downloads the sample application and
-saved versions you can use to catch up later. It also downloads the Beans MCP
-server, which will let agents in the sandbox read tasks from your host backlog
-in chapter 05. The script downloads these materials from the workshop's GitHub
-releases and verifies their checksums. You'll start the app in chapter 01.
+The workshop's `get-materials.sh` script downloads
+`incident-triage-board.bundle` from the pinned
+[materials-v0.1.0 GitHub release](https://github.com/shelajev/wad-sbx-workshop/releases/tag/materials-v0.1.0)
+and verifies its checksum. That Git bundle contains the sample application and
+the saved checkpoints used to catch up later. The script clones the bundle into
+`.local/app/`, then creates your editable working copy at `sample-app/` from the
+`app-00-starter` checkpoint.
+
+The script also downloads and verifies the Beans MCP adapter into `dist/`. The
+adapter will let agents in the sandbox read tasks from your host backlog in
+chapter 05. You'll start the sample application in chapter 01.
 
 ```bash
 # HOST — from the workshop repository
@@ -129,13 +145,27 @@ When it finishes, open `sample-app/README.md` in your editor. This is the projec
 your agents will work on. You should also find `host-only.txt` at the workshop
 root; we'll use it to explore which files a sandbox can see.
 
+Running `./scripts/get-materials.sh` again is safe: it preserves both the cached
+`.local/app/` repository and an existing `sample-app/` working copy. If
+`.local/app/` exists but `sample-app/` is missing, recreate the starter working
+copy without another download:
+
+```bash
+# HOST — from the workshop repository
+./scripts/prepare-app.sh
+```
+
+Later catch-up commands name a checkpoint explicitly. In that mode,
+`prepare-app.sh` first saves the current working copy under `.local/`, then
+replaces `sample-app/` with a fresh copy of the requested checkpoint.
+
 ### Find your workshop files
 
 | Path | What you use it for |
 |---|---|
 | `sample-app/` | Your application source and its Git history, shared with each sandbox. |
 | `chapters/` | The instructions you are following. |
-| `.local/app/` | Saved application checkpoints for catching up if you need one. |
+| `.local/app/` | Internal Git repository containing the downloaded application checkpoints. Do not edit it directly. |
 | `dist/` | The downloaded MCP tool, ready to install in chapter 05. |
 
 In chapter 02, you'll create `factory/` for the sandbox settings and team

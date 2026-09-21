@@ -6,8 +6,8 @@ name: wad-multi-provider
 description: Workshop Claude, Codex and Pi crew using host-side SBX credentials.
 args:
   google_secret_service:
-    default: gemini
-    description: Existing SBX secret service for Google API access (gemini or google)
+    default: google
+    description: Existing SBX secret service for Google API access (google, or legacy gemini)
     pattern: '^(gemini|google)$'
   codex_version:
     default: "0.154.0"
