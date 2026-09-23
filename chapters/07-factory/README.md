@@ -1,4 +1,4 @@
-# 7. Give your factory another project
+# Chapter 7: Give your factory another project
 
 Now try the factory on a project you care about. Choose a small feature or bug
 fix in a repository you know well enough to judge the result. A library or CLI
@@ -124,7 +124,7 @@ crew watch
 ```
 
 Use `crew reply "your answer"` for a product question. Use HOST for a scoped network
-policy change, as in chapter 05. `crew logs developer` shows the assistant's current
+policy change, as in chapter 5. `crew logs developer` shows the assistant's current
 terminal output if a tool or login needs attention; it does not attach an interactive
 session to that assistant.
 

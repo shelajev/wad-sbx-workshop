@@ -1,4 +1,4 @@
-# 3. Give the factory a choice of assistant
+# Chapter 3: Give the factory a choice of assistant
 
 You have a project and shared coding guidance ready for an agent. Let's try a
 different assistant with that same setup. SBX gives you somewhere to install its
@@ -83,7 +83,7 @@ before starting a model conversation:
   its version. Follow sections 4 and 5 with a partner or the presenter: look for
   the code and policy rule Pi uses to support its answer. You do not need to set a
   secret or send Pi a model request on your machine. Then go to
-  [finish this chapter](#6-finish-this-chapter). In chapter 04, use the all-Claude
+  [finish this chapter](#6-finish-this-chapter). In chapter 4, use the all-Claude
   role table to build and run your own team.
 
 For the API route, register your Anthropic key from HOST:

@@ -36,7 +36,7 @@ just a mixin. Read it in these pieces:
 The real credentials live in SBX's host credential store, not the role table.
 Each assistant can use the account route that fits it:
 
-- **Claude Code:** use the Claude subscription login from chapter 01, or register
+- **Claude Code:** use the Claude subscription login from chapter 1, or register
   an Anthropic API key with `sbx secret set anthropic`.
 - **Codex:** use a ChatGPT subscription by running `sbx secret set openai --oauth`,
   or register an OpenAI API key with `sbx secret set openai`.

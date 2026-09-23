@@ -1,4 +1,4 @@
-# 4. Turn assistants into a team
+# Chapter 4: Turn assistants into a team
 
 So far, you've talked to each assistant yourself. For a team to work, someone
 needs to pass the developer's result to QA and bring questions back to you.
@@ -39,7 +39,7 @@ qa	claude	anthropic	claude-sonnet-5
 ```
 
 Each row means **role, assistant, provider, model**. Use the working Pi model from
-chapter 03. The coordinator routes work and questions; the developer changes code;
+chapter 3. The coordinator routes work and questions; the developer changes code;
 QA checks the proposed change against the requirements.
 
 If you only have Claude subscription access, use this content instead:

@@ -1,4 +1,4 @@
-# 2. Turn a one-off sandbox into a repeatable work environment
+# Chapter 2: Make the sandbox repeatable
 
 Your warm-up change is in `sample-app/`. Let's give a new agent that project and
 a written task without retyping the sandbox settings. You'll put those settings
@@ -35,7 +35,7 @@ ports:
 
 `agent` selects the built-in Claude environment. `workspace` is relative to this
 file: `../sample-app` shares our application, including `.git`. The resource and
-skills settings are the choices from chapter 01. `ports` publishes the app's port
+skills settings are the choices from chapter 1. `ports` publishes the app's port
 8080 at localhost:3102 every time this environment is created. It does not start
 the app; the agent does that when needed.
 
@@ -125,7 +125,7 @@ args:
 ```
 
 The name is an input now. The app path defaults to the same working directory;
-chapter 07 will show how to select another project.
+chapter 7 will show how to select another project.
 
 Create `factory/chapter.env`:
 
@@ -158,21 +158,9 @@ The agent will read this prompt alongside the task. The task describes the
 filter-count change; the prompt asks the agent to check the work you already did.
 Your environment file supplies the workspace where it can inspect that code.
 
-## 4. Run the small host launcher
+## 4. Start the repeatable sandbox
 
-Open `chapters/support/launch` if you want to inspect the glue. It reads the selected
-Bean, calls SBX to mount the project, supplies the task and workshop helpers, then
-opens your session. It does not implement the task, start application services,
-or verify the result.
-
-The SBX creation command inside it is equivalent to this **reference example**:
-
-```text
-sbx env create factory/sbxenv.yaml --env-arg name=wad-ch-02 --auto-approve
-```
-
-The launcher also passes the absolute application path. `--auto-approve` applies
-the configuration you just inspected. Preview that configuration in HOST:
+Preview the configuration in HOST:
 
 ```bash
 sbx env plan factory/sbxenv.yaml --env-arg name=wad-ch-02
@@ -184,11 +172,9 @@ Then in the SANDBOX tab, at the workshop root:
 ./scripts/launch-factory.sh wad-ch-02
 ```
 
-The launcher creates `wad-ch-02`, places the selected task at `~/work/task.json`
-and your prompt at `~/work/PROMPT.md` inside it, then opens Claude in the mounted
-project. These two files give the assistant its assignment; the application
-itself is still shared directly from `sample-app/`.
-Tell it:
+The launcher creates `wad-ch-02` and opens Claude in `sample-app/`. It gives Claude
+the selected task as `~/work/task.json` and your prompt as `~/work/PROMPT.md`.
+The launcher does not implement or verify the task for you. Tell Claude:
 
 > Read ~/work/PROMPT.md and follow those instructions. Explain what you found.
 
