@@ -195,9 +195,11 @@ actually ran? A skipped test has not exercised the browser. If startup fails,
 use its error message to identify what the sandbox still needs.
 
 Redirects and system package repositories may introduce another destination;
-inspect the actual request before allowing it. If installation and browser checks
-already pass, continue to the kit definition below. When a request is blocked,
-the agent can explain what it needs; you decide on the host whether to allow it.
+Ubuntu mirrors such as `archive.ubuntu.com` or `security.ubuntu.com` are common.
+They are intentionally not pre-authorized in this exercise: when a request is
+blocked, inspect it, ask the agent why it is needed, and from your host terminal,
+allow only the specific hostname you accept. If installation and browser checks
+already pass, continue to the kit definition below.
 
 For a requirement you want every future worker to have, create
 `factory/browser-access/spec.yaml` in your editor:

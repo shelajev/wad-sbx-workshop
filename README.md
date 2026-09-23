@@ -103,7 +103,11 @@ access-control concepts apply whichever team framework you choose.
 ## Get started
 
 Bring a **Mac with Apple silicon** or a **Windows x64 machine with Git Bash**,
-a browser and model access. [Chapter 00](chapters/00-setup/README.md#1-install-the-host-prerequisites)
+a browser and model access. Those are the two attendee host platforms tested and
+supported during the workshop. Experienced Linux users are welcome to try the
+exercises on a best-effort, self-supported basis, but the instructor may not be
+able to troubleshoot Linux-specific setup differences during the session.
+[Chapter 00](chapters/00-setup/README.md#1-install-the-host-prerequisites)
 walks you through installation, accounts and downloading the sample application.
 The first exercise uses Claude Code with your Claude account. Later, Anthropic API
 access lets you try Pi yourself; with subscription access alone, follow that model
@@ -114,7 +118,19 @@ explains the account requirements. Docker containers run inside SBX, so you do n
 need Docker Desktop or a host Docker engine.
 
 Installation and model authentication are part of the workshop. The repository
-and sample materials are publicly downloadable.
+and sample materials are publicly downloadable. After cloning this repository,
+run the materials helper from its root:
+
+```bash
+./scripts/get-materials.sh
+```
+
+It downloads the pinned sample-app bundle from the workshop's
+[materials-v0.1.0 GitHub release](https://github.com/shelajev/wad-sbx-workshop/releases/tag/materials-v0.1.0),
+verifies its checksum, keeps the checkpoint repository in `.local/app/`, and
+creates the editable application in `sample-app/`. It also downloads the Beans
+MCP adapter used later in the workshop into `dist/`. Chapter 00 explains these
+directories and how to recover or catch up without losing existing work.
 
 **[Start with chapter 00: setup →](chapters/00-setup/README.md)**
 

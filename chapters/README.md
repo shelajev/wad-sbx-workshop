@@ -50,6 +50,17 @@ next incremental chapter starts from the right state. First, exit the current
 sandbox session and follow that chapter's cleanup instructions. In chapters 05–07,
 cleanup includes removing the host MCP registration as well as the sandbox.
 
+If you did not complete chapter 02, install Beans and initialize the disposable
+workshop backlog before using a catch-up configuration for chapter 03 or later:
+
+```bash
+# HOST — from the workshop repository
+./scripts/install-beans.sh
+./scripts/backlog-init.sh --disposable
+```
+
+The later launchers expect both the pinned Beans executable and this host backlog.
+
 For example, to start chapter 03 with the ACR/Pi environment already assembled:
 
 ```bash

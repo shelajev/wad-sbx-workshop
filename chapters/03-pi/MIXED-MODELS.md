@@ -33,9 +33,29 @@ just a mixin. Read it in these pieces:
 4. `setup.install` installs Codex and prepares the assistant configuration appropriate
    to the selected authentication mode. Pi and Herdr remain separate mixins.
 
-The real credentials live in SBX's host credential store, not the role table. The
-presenter's setup needs usable `anthropic`, `openai` and `gemini` services; the kit's
-`google_secret_service` argument can select an existing `google` service instead.
+The real credentials live in SBX's host credential store, not the role table.
+Each assistant can use the account route that fits it:
+
+- **Claude Code:** use the Claude subscription login from chapter 01, or register
+  an Anthropic API key with `sbx secret set anthropic`.
+- **Codex:** use a ChatGPT subscription by running `sbx secret set openai --oauth`,
+  or register an OpenAI API key with `sbx secret set openai`.
+- **Pi on Gemini:** register a Gemini API key with `sbx secret set google`.
+
+For an API-key-based presenter setup, run:
+
+```bash
+sbx secret set anthropic
+sbx secret set openai
+sbx secret set google
+```
+
+Enter the corresponding keys at the secure prompts. You do not need both a
+subscription and an API key for Claude Code or Codex. Pi itself uses provider APIs,
+so its normal Anthropic route needs an Anthropic API key; this mixed route instead
+uses the Gemini key. SBX v0.45.0-rc2 calls the Gemini credential service `google`;
+the kit's `google_secret_service` argument can also select a legacy service named
+`gemini`.
 
 ## Presenter walkthrough
 

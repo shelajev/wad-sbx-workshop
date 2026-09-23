@@ -24,6 +24,13 @@ for ref in app-00-starter app-01-warmup-solution app-02-feature-solution; do
   [ "$(git -C "$app" rev-parse HEAD^)" = "$(git -C "$app" rev-parse "$ref^{commit}")" ]
   [ "$(git -C "$app" show -s --format='%an <%ae>' HEAD)" = 'Workshop setup <workshop@example.invalid>' ]
   [ -z "$(git -C "$app" status --porcelain)" ]
+  if [ "$ref" = app-00-starter ]; then
+    [ -f "$app/WORKSHOP-TASK.md" ]
+    grep -Fx '/WORKSHOP-TASK.md' "$app/.git/info/exclude" >/dev/null
+  else
+    [ ! -e "$app/WORKSHOP-TASK.md" ]
+    ! grep -Fx '/WORKSHOP-TASK.md' "$app/.git/info/exclude" >/dev/null
+  fi
   node --input-type=module - "$app" "$work" <<'NODE'
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync } from 'node:fs';

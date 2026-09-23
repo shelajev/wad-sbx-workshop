@@ -83,7 +83,9 @@ interactive shell in the running sandbox, alongside the existing agent sessions.
 You do not need to find an IP address or install an SSH server in the app.
 See [SBX integrations](https://docs.docker.com/ai/sandboxes/integrations/).
 
-Your HOST tab is temporarily an SSH session. Inside it:
+You do not need a third terminal: your HOST tab becomes the SSH session
+temporarily, while the original SANDBOX tab remains connected. After answering
+the team, `exit` closes SSH and restores the HOST tab. Inside the SSH session:
 
 ```bash
 crew status

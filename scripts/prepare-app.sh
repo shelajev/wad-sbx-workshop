@@ -20,8 +20,10 @@ git -C "$stage/app" apply --index "$root/scripts/patches/app-cli-paths.patch" \
 git -C "$stage/app" -c user.name='Workshop setup' -c user.email=workshop@example.invalid \
   -c commit.gpgsign=false -c core.hooksPath=/dev/null commit --quiet \
   -m 'WAD-SETUP: fix CLI paths and browser checks'
-cat "$root/backlog/seed/wad-101--warm-up-active-filter-count.md" > "$stage/app/WORKSHOP-TASK.md"
-printf '\n/WORKSHOP-TASK.md\n' >> "$stage/app/.git/info/exclude"
+if [ "$ref" = app-00-starter ]; then
+  cat "$root/backlog/seed/wad-101--warm-up-active-filter-count.md" > "$stage/app/WORKSHOP-TASK.md"
+  printf '\n/WORKSHOP-TASK.md\n' >> "$stage/app/.git/info/exclude"
+fi
 if [ -e "$app" ]; then
   backup="$(mktemp -d "$root/.local/saved-app.XXXXXX")"
   mv "$app" "$backup/sample-app"

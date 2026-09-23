@@ -5,6 +5,11 @@ then give it a small coding task. First, try a few shell commands to see what it
 can access: the source directory is shared with your laptop, so edits appear in
 your editor, while commands and the database container run inside SBX.
 
+This first chapter deliberately uses the manual `sbx run` command below. The
+adjacent `chapter.env`, `sbxenv.yaml`, `launch`, and `PROMPT.md` files are completed
+reference fixtures used by workshop validation and presenters; attendees do not
+run them. Chapter 02 introduces the repeatable environment and launcher workflow.
+
 ## 1. Start Claude in your application
 
 From the workshop repository root:
@@ -35,7 +40,7 @@ The built-in Claude configuration starts with permission prompts bypassed (the
 
 ## 2. Try shell commands without leaving Claude
 
-Claude's [`!` shell mode](https://code.claude.com/docs/en/interactive-mode#shell-mode-with--prefix)
+Claude's [`!` shell mode](https://code.claude.com/docs/en/interactive-mode#shell-mode-with-prefix)
 runs a command directly. Enter these one at a time **in Claude's input**, not in your
 host shell:
 
@@ -145,7 +150,7 @@ chapters. Try a severity or status filter, then give Claude this prompt:
 
 > Read WORKSHOP-TASK.md and implement the active-filter result-count task. Run the
 > relevant checks inside this sandbox, commit your change, and refresh the running
-> app so I can try it. Use “Workshop learner” and “workshop@example.invalid” as the
+> app so I can try it. Use `Workshop learner` and `workshop@example.invalid` as the
 > Git author if none is configured. Report what changed and how you checked it.
 
 Try the filters again in your browser. Ask Claude to show the commit and explain
