@@ -1,4 +1,4 @@
-# 5. Give the team controlled access to host tools
+# Chapter 5: Give the team controlled access to host tools
 
 Each sandbox has started with a copy of its task. We want the team to read the
 current requirements from Beans and leave a result note when it finishes, so it
@@ -20,7 +20,7 @@ reading a task and, when enabled, appending a note. It does not expose arbitrary
 shell commands or task deletion. We can make the integration useful without giving
 the agent our entire host filesystem or connecting a production issue tracker.
 
-Chapter 00 downloaded the adapter for your computer. Install it into the
+Chapter 0 downloaded the adapter for your computer. Install it into the
 workshop's tools directory from HOST:
 
 ```bash
@@ -38,7 +38,7 @@ Beans without needing a public web service or another account login.
 Open `scripts/beans-mcp` in your editor. This short entry point selects the same
 workshop backlog as `scripts/beans`. By default it is read-only; `--allow-notes`
 enables the result-note tool. The underlying adapter also requires the disposable
-backlog marker created in chapter 02.
+backlog marker created in chapter 2.
 
 ## 2. Declare the connection alongside the sandbox
 
@@ -108,7 +108,7 @@ check outcomes. Leave the task open. Send the human a summary and how to try it.
 With the server in the environment file, Claude can call its tools. The prompt
 gives the team a reason to use them: fetch this task, do the work and write back
 the result. Claude is the developer connected to the gateway, so the coordinator
-asks it for the requirements through the messages you tried in chapter 04. This
+asks it for the requirements through the messages you tried in chapter 4. This
 works with either coordinator configuration from that chapter.
 
 In HOST, preview the connection:

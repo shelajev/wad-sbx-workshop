@@ -1,4 +1,4 @@
-# 6. Join the team when it needs a human decision
+# Chapter 6: Join the team when it needs a human decision
 
 The next task is to let users reopen a resolved incident. There's a product
 decision to make first: should reopening clear the current resolution note or keep
@@ -53,7 +53,7 @@ crew watch
 `crew submit` sends the reopening task to the coordinator; `crew watch` follows
 the discussion. Wait for a message asking whether to clear or retain the note
 before connecting through SSH to answer it. If you added the browser-access kit in
-chapter 05, it is also installed in this newly created environment.
+chapter 5, it is also installed in this newly created environment.
 
 ## 2. Reach the existing team through SSH
 
@@ -75,7 +75,7 @@ On Windows, use the native Windows OpenSSH client from Git Bash:
 /c/Windows/System32/OpenSSH/ssh.exe wad-ch-06.sbx
 ```
 
-Use this full path so you get the Windows client configured in chapter 00.
+Use this full path so you get the Windows client configured in chapter 0.
 It can read the Windows paths that SBX puts in the SSH configuration.
 
 `setup ssh` configures the host's SSH integration. The connection command opens an
@@ -129,6 +129,6 @@ The second command removes this sandbox's host MCP registration.
 
 For the next project, you can answer product questions through the same team
 conversation. If an agent needs more network access, use the host policy controls
-from chapter 05.
+from chapter 5.
 
 Next: [use the factory on another project](../07-factory/README.md).

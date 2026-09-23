@@ -107,13 +107,13 @@ a browser and model access. Those are the two attendee host platforms tested and
 supported during the workshop. Experienced Linux users are welcome to try the
 exercises on a best-effort, self-supported basis, but the instructor may not be
 able to troubleshoot Linux-specific setup differences during the session.
-[Chapter 00](chapters/00-setup/README.md#1-install-the-host-prerequisites)
+[Chapter 0](chapters/00-setup/README.md#1-install-the-host-prerequisites)
 walks you through installation, accounts and downloading the sample application.
 The first exercise uses Claude Code with your Claude account. Later, Anthropic API
 access lets you try Pi yourself; with subscription access alone, follow that model
 conversation with a partner or presenter and run your own team using Claude Code
 for all three roles. Everyone configures the roles and their models.
-[Chapter 00](chapters/00-setup/README.md#2-have-an-agent-account-ready)
+[Chapter 0](chapters/00-setup/README.md#2-have-an-agent-account-ready)
 explains the account requirements. Docker containers run inside SBX, so you do not
 need Docker Desktop or a host Docker engine.
 
@@ -129,10 +129,10 @@ It downloads the pinned sample-app bundle from the workshop's
 [materials-v0.1.0 GitHub release](https://github.com/shelajev/wad-sbx-workshop/releases/tag/materials-v0.1.0),
 verifies its checksum, keeps the checkpoint repository in `.local/app/`, and
 creates the editable application in `sample-app/`. It also downloads the Beans
-MCP adapter used later in the workshop into `dist/`. Chapter 00 explains these
+MCP adapter used later in the workshop into `dist/`. Chapter 0 explains these
 directories and how to recover or catch up without losing existing work.
 
-**[Start with chapter 00: setup →](chapters/00-setup/README.md)**
+**[Start with Chapter 0: Setup →](chapters/00-setup/README.md)**
 
 Or browse the [chapter guide](chapters/README.md) to see the whole journey.
 
@@ -144,12 +144,12 @@ Use two terminal tabs, both initially opened at this repository root:
 - **SANDBOX** is where you open the assistant or shell inside SBX. Keep that session open while the agents work.
 
 We run one workshop sandbox at a time. Chapters 01–06 mount the same `sample-app/`
-working copy, including its Git history. Chapter 07 applies the factory to another
+working copy, including its Git history. Chapter 7 applies the factory to another
 project you choose. Edits appear on your host immediately.
 Containers and application processes run inside SBX. A chapter ends by removing
 its sandbox; the mounted source remains for the next chapter.
 
-From chapter 02, you will build one configuration in `factory/`, adding tools and
+From chapter 2, you will build one configuration in `factory/`, adding tools and
 capabilities to the same `factory/sbxenv.yaml` as you go.
 
 Follow each chapter from the top. Each step tells you which files to create or

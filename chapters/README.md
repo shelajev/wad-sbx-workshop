@@ -9,15 +9,15 @@ connecting the host, sandbox, agent team and task backlog.
 
 | Chapter | What you add | What you can observe |
 |---|---|---|
-| [00: setup](00-setup/README.md) | SBX, accounts and workshop materials | Two terminals and the sample source on your laptop |
-| [01: one agent](01-agent/README.md) | Isolated execution and a mounted project | An agent runs containers, changes code and opens the app through a port |
-| [02: repeatable environment](02-launcher/README.md) | sbxenv and a Beans task | The same project and its task in a newly created sandbox |
-| [02.5: shared guidance](02.5-acr/README.md) | A simple kit, then ACR | A reusable installation and a policy-backed review |
-| [03: another assistant](03-pi/README.md) | Pi and provider configuration | Try assistants and models against the same code and guidance |
-| [04: team](04-team/README.md) | Herdr, roles and file messages | A request passes from coordinator to developer to QA |
-| [05: host tools](05-mcp/README.md) | MCP gateway and scoped access | Agents read a host task and append the reviewed result |
-| [06: human intervention](06-human/README.md) | SSH and a product answer | The existing team resumes using your decision |
-| [07: reuse](07-factory/README.md) | Another project and task | The same factory works in a different mounted repository |
+| [Chapter 0: Setup](00-setup/README.md) | SBX, accounts and workshop materials | Two terminals and the sample source on your laptop |
+| [Chapter 1: One agent](01-agent/README.md) | Isolated execution and a mounted project | An agent runs containers, changes code and opens the app through a port |
+| [Chapter 2: Repeatable environment](02-launcher/README.md) | sbxenv and a Beans task | The same project and its task in a newly created sandbox |
+| [Interlude: Shared guidance](02.5-acr/README.md) | A simple kit, then ACR | A reusable installation and a policy-backed review |
+| [Chapter 3: Another assistant](03-pi/README.md) | Pi and provider configuration | Try assistants and models against the same code and guidance |
+| [Chapter 4: Team](04-team/README.md) | Herdr, roles and file messages | A request passes from coordinator to developer to QA |
+| [Chapter 5: Host tools](05-mcp/README.md) | MCP gateway and scoped access | Agents read a host task and append the reviewed result |
+| [Chapter 6: Human intervention](06-human/README.md) | SSH and a product answer | The existing team resumes using your decision |
+| [Chapter 7: Reuse](07-factory/README.md) | Another project and task | The same factory works in a different mounted repository |
 | [Presenter extensions](08-presenter/README.md) | Runtime mounts, cloud and governance | Additional capabilities demonstrated by the presenter |
 
 The third-party tools and workflow are the author's choices, not Docker
@@ -47,11 +47,11 @@ shell is for a concrete investigation; it is not a permanent part of the workflo
 The numbered directories contain completed reference configurations. A catch-up
 command puts the chosen configuration in **the same `factory/` directory**, so the
 next incremental chapter starts from the right state. First, exit the current
-sandbox session and follow that chapter's cleanup instructions. In chapters 05–07,
+sandbox session and follow that chapter's cleanup instructions. In chapters 5–7,
 cleanup includes removing the host MCP registration as well as the sandbox.
 
-If you did not complete chapter 02, install Beans and initialize the disposable
-workshop backlog before using a catch-up configuration for chapter 03 or later:
+If you did not complete chapter 2, install Beans and initialize the disposable
+workshop backlog before using a catch-up configuration for chapter 3 or later:
 
 ```bash
 # HOST — from the workshop repository
@@ -61,7 +61,7 @@ workshop backlog before using a catch-up configuration for chapter 03 or later:
 
 The later launchers expect both the pinned Beans executable and this host backlog.
 
-For example, to start chapter 03 with the ACR/Pi environment already assembled:
+For example, to start chapter 3 with the ACR/Pi environment already assembled:
 
 ```bash
 # HOST
@@ -75,7 +75,7 @@ assistant and model choices carry forward. `sample-app/` is unchanged.
 
 If you added your own kits, open the saved `sbxenv.yaml` and compare its `kits`
 list with the new `factory/sbxenv.yaml`. Add back the entries you still want.
-For example, if you created the browser-access kit in chapter 05, keep its access
+For example, if you created the browser-access kit in chapter 5, keep its access
 rules for future workers by adding this entry under the new file's `kits` list:
 
 ```yaml
@@ -94,7 +94,7 @@ For the chapter-03 example above, continue in your SANDBOX tab:
 The configuration supplies the ACR kit and opens a shell. A fresh application
 checkpoint includes ACR configuration but not the installed workshop policy.
 In that sandbox shell, install and verify the policy and review skill before
-continuing at chapter 03's provider setup:
+continuing at chapter 3's provider setup:
 
 ```bash
 install-guidance
@@ -115,7 +115,7 @@ the reference Pi/Anthropic coordinator and two Claude roles. Choose the
 [all-Claude configuration](04-team/README.md#2-give-the-assistants-different-responsibilities)
 if you have only subscription access. Restore any extra kit entries as described
 above. Then launch `wad-ch-06`, run `install-guidance` in its sandbox shell for the
-fresh checkpoint, and submit its task as chapter 06 describes.
+fresh checkpoint, and submit its task as chapter 6 describes.
 The path you work in remains `sample-app/`.
 
 ## Repeating a chapter
@@ -125,7 +125,7 @@ finish the current conversation, exit its session and use the chapter's cleanup
 commands in HOST. Read any result or question you need before removal: the mounted
 source stays, but the in-sandbox conversation and running services do not.
 
-For example, after chapter 05:
+For example, after chapter 5:
 
 ```bash
 # HOST

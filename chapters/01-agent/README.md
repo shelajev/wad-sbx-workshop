@@ -1,14 +1,10 @@
-# 1. Let an agent build inside a sandbox
+# Chapter 1: Let an agent build inside a sandbox
 
 Start by opening Claude Code in a sandbox. You'll ask it to run the sample app,
 then give it a small coding task. First, try a few shell commands to see what it
 can access: the source directory is shared with your laptop, so edits appear in
-your editor, while commands and the database container run inside SBX.
-
-This first chapter deliberately uses the manual `sbx run` command below. The
-adjacent `chapter.env`, `sbxenv.yaml`, `launch`, and `PROMPT.md` files are completed
-reference fixtures used by workshop validation and presenters; attendees do not
-run them. Chapter 02 introduces the repeatable environment and launcher workflow.
+your editor, while commands and the database container run inside SBX. You'll
+start manually, then make the setup repeatable in chapter 2.
 
 ## 1. Start Claude in your application
 
@@ -187,6 +183,6 @@ this from the workshop repository:
 
 This puts the supplied completed exercise in `sample-app/`. Your previous copy is
 saved under `.local/saved-app.*`; the command prints its location. Continue with
-chapter 02 using the same `sample-app/` path.
+chapter 2 using the same `sample-app/` path.
 
 Next: [environment files and the host launcher](../02-launcher/README.md).

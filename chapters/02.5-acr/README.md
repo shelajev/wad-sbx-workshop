@@ -1,4 +1,4 @@
-# 2.5. Give every worker the same tools and guidance
+# Interlude: Give every worker the same tools and guidance
 
 The next agent can see your code and task, but it also needs to know how your team
 expects code to be written and reviewed. You'll give it a versioned coding policy
