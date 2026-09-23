@@ -11,7 +11,7 @@ handle the conversation.
 
 ## 1. Give it a task with a real choice
 
-Keep using `sample-app/`, including your completed chapter-05 feature. If you skipped
+Keep using `sample-app/`, including your completed chapter 5 feature. If you skipped
 that feature, the [catch-up instructions](../README.md#catch-up) can install a completed
 checkpoint before you continue.
 

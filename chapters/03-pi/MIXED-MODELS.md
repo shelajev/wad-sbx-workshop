@@ -87,7 +87,7 @@ sbx rm wad-mixed
 
 ## Carry the mixed team into the MCP exercise
 
-The custom kit also configures Claude's MCP client. To demonstrate the chapter-05
+The custom kit also configures Claude's MCP client. To demonstrate the chapter 5
 connection with this same team, use the supplied MCP reference configuration:
 
 ```bash

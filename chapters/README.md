@@ -85,7 +85,7 @@ rules for future workers by adding this entry under the new file's `kits` list:
 The kit directory itself remains in `factory/`; this entry tells SBX to apply it.
 The reference file supplies the chapter's standard kits, so keep those too.
 
-For the chapter-03 example above, continue in your SANDBOX tab:
+For the chapter 3 example above, continue in your SANDBOX tab:
 
 ```bash
 ./scripts/launch-factory.sh wad-ch-03
@@ -135,7 +135,7 @@ sbx mcp rm wad-ch-05-beans
 
 The first command removes the sandbox; the second removes its host tool
 registration. The sandbox and host connection are separate resources.
-Chapters 06 and 07 show the corresponding names for their environments. Earlier
+Chapters 6 and 7 show the corresponding names for their environments. Earlier
 chapters have no MCP registration to remove.
 
 Then run the chapter's launcher again from the SANDBOX tab, at the workshop root.

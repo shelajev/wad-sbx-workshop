@@ -143,7 +143,7 @@ Use two terminal tabs, both initially opened at this repository root:
 - **HOST** stays on your laptop for sandbox creation, network policy and task tracking.
 - **SANDBOX** is where you open the assistant or shell inside SBX. Keep that session open while the agents work.
 
-We run one workshop sandbox at a time. Chapters 01–06 mount the same `sample-app/`
+We run one workshop sandbox at a time. Chapters 1–6 mount the same `sample-app/`
 working copy, including its Git history. Chapter 7 applies the factory to another
 project you choose. Edits appear on your host immediately.
 Containers and application processes run inside SBX. A chapter ends by removing
