@@ -13,6 +13,12 @@ part of the chapter 1–7 walkthrough.
 
 ## Prepare the main workshop
 
+For a 90-minute delivery, use the [short route](../../routes/90-min/README.md)
+and its timeboxes instead of the two-hour agenda below. Stop chapter 1 before the
+coding task; that task will arrive through MCP. Kits and teams are continuation
+material. If time runs short, prioritize a real MCP task read and inspection over
+watching an unfinished coding job.
+
 Use the same SBX release as attendees: **v0.50.0**. Recheck the release and
 installation links before each delivery. Keep the existing v2 kits for this lab;
 moving to v3 kits is a separate exercise.

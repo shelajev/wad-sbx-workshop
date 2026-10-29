@@ -15,4 +15,6 @@ for chapter in "$root/chapters/0"*/chapter.env; do
   sbx env plan "${chapter%/*}/sbxenv.yaml" --env-arg name=wad-chapter-plan >/dev/null
   printf 'VALID environment: %s\n' "${chapter%/*}"
 done
+sbx env plan "$root/routes/90-min/sbxenv.yaml" >/dev/null
+sbx env plan "$root/routes/90-min/sbxenv.yaml" --env-arg access=--allow-notes >/dev/null
 echo 'PASS: syntax, kit validation, and real SBX environment plans. This is not an end-to-end run.'

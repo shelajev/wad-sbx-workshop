@@ -1,5 +1,9 @@
 # Build a software factory with Docker Sandboxes
 
+**Joining the 90-minute session? [Start with the short route](routes/90-min/README.md).**
+It covers one Claude agent, isolation, a repeatable environment and Beans through
+SBX's MCP gateway. Continue with the full factory afterward.
+
 In this two-hour workshop, you'll build a small software factory: a team of coding
 agents that takes a task, changes the code, reviews the result and asks for your
 help when it needs a product decision. You'll start with one agent in Docker

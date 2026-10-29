@@ -1,5 +1,8 @@
 # From one agent to a software factory
 
+For the shorter live session, follow the [90-minute route](../routes/90-min/README.md).
+It introduces SBX-managed MCP with one Claude conversation before any team setup.
+
 Start with one agent and add what it needs for the next task. You'll keep working
 in `sample-app/` throughout, with the sandbox and team configuration in `factory/`.
 Each chapter builds on the previous one, so you can see what each new tool changes.

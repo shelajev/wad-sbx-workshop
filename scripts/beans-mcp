@@ -11,8 +11,9 @@ args=(--beans-bin "$(beans_bin)"
   --beans-data "$CONTROL_DIR/beans/.beans")
 case "${1:-}" in
   '') ;;
+  --read-only) shift ;;
   --allow-notes) args+=(--enable-presenter-note-tool); shift ;;
-  *) echo 'Usage: scripts/beans-mcp [--allow-notes]' >&2; exit 2 ;;
+  *) echo 'Usage: scripts/beans-mcp [--read-only|--allow-notes]' >&2; exit 2 ;;
 esac
 [ $# -eq 0 ] || { echo 'Unexpected arguments' >&2; exit 2; }
 exec "$BIN_DIR/beans-mcp$(executable_suffix)" "${args[@]}"

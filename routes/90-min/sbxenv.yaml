@@ -1,0 +1,23 @@
+schemaVersion: "1"
+name: wad-short
+agent: claude
+workspace: ../../sample-app
+args:
+  host_shell:
+    default: bash
+  access:
+    default: --read-only
+sandboxOptions:
+  skills: off
+  cpus: 4
+  memory: 8g
+ports:
+  - sandbox: 8080
+    host: 3102
+    protocol: tcp4
+    hostIP: 127.0.0.1
+mcp:
+  servers:
+    - name: wad-short-beans
+      command: "${{ env.args.host_shell }}"
+      args: ["${{ env.fileDir }}/../../scripts/beans-mcp", "${{ env.args.access }}"]
