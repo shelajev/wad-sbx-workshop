@@ -20,11 +20,7 @@ No host Docker engine or Docker Desktop is required. Docker containers will run
 **inside** the sandbox.
 
 This workshop's attendee instructions are tested and supported on macOS with
-Apple silicon and Windows x64 with Git Bash. Experienced Linux users are welcome
-to try the exercises on a best-effort, self-supported basis. The helper scripts
-recognize Linux, but the full Linux setup path is not documented, and the
-instructor may not be able to troubleshoot Linux-specific differences during the
-session.
+Apple silicon, Windows x64 with Git Bash, and Linux x64 (e.g., Ubuntu 24.04.5 LTS).
 
 ### macOS on Apple silicon
 
@@ -73,9 +69,44 @@ Use **Windows OpenSSH Client** for chapter 6. In Git Bash its executable is
 to add the **client**. [Chapter 6](../06-human/README.md#2-reach-the-existing-team-through-ssh)
 shows how to use it to join your running team.
 
+### Install on Ubuntu
+
+> [!NOTE]
+> Docker does not test or support Docker Sandboxes on Ubuntu derivatives, such as Linux Mint and Pop!_OS. The convenience script can configure an incorrect package repository on these distributions.
+
+You can install `sbx` with Docker Engine or install only the `sbx` package.
+
+#### Install Docker Engine and SBX
+
+Run Docker's convenience script with `SBX=1` to install Docker Engine and the `docker-sbx` package together:
+
+```bash
+# HOST
+curl -fsSL https://get.docker.com | sudo SBX=1 sh
+```
+
+#### Install SBX only
+
+To install `sbx` without Docker Engine on the host, add Docker's apt repository and install the `docker-sbx` package:
+
+```bash
+# HOST
+curl -fsSL https://get.docker.com | sudo REPO_ONLY=1 sh
+sudo apt install docker-sbx
+```
+
+Also ensure the required host utilities are installed, then check the version and sign in:
+
+```bash
+# HOST
+sudo apt install -y git jq curl tar unzip coreutils openssh-client
+sbx version
+sbx login
+```
+
 ### Check the version and tools
 
-Check that `sbx version` reports **v0.45.0-rc2**, the version used by these
+Check that `sbx version` reports **v0.45.0-rc2** or **v0.49.2**, the versions used by these
 instructions. If Homebrew installed a different RC, use the installer for your
 platform from the [SBX release](https://github.com/docker/sbx-releases/releases/tag/v0.45.0-rc2).
 

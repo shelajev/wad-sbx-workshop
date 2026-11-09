@@ -102,11 +102,9 @@ access-control concepts apply whichever team framework you choose.
 
 ## Get started
 
-Bring a **Mac with Apple silicon** or a **Windows x64 machine with Git Bash**,
-a browser and model access. Those are the two attendee host platforms tested and
-supported during the workshop. Experienced Linux users are welcome to try the
-exercises on a best-effort, self-supported basis, but the instructor may not be
-able to troubleshoot Linux-specific setup differences during the session.
+Bring a **Mac with Apple silicon**, a **Windows x64 machine with Git Bash**, or a
+**Linux x64 machine (e.g., Ubuntu 24.04.5 LTS)**, a browser and model access.
+Those are the attendee host platforms tested and supported during the workshop.
 [Chapter 0](chapters/00-setup/README.md#1-install-the-host-prerequisites)
 walks you through installation, accounts and downloading the sample application.
 The first exercise uses Claude Code with your Claude account. Later, Anthropic API
